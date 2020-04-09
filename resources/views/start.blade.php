@@ -66,8 +66,8 @@
     <body>
         <div class="flex-center position-ref full-height">
             <div class="content">
-                @isset( $shortLinks )
-                    {{ $shortLinks }}
+                @isset( $message )
+                    {{ $message }}
                 @endisset
                 <div class="title m-b-md">
                     <form action="{{route('mklink')}}" method="POST" accept-charset="utf-8">

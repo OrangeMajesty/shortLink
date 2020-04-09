@@ -35,15 +35,19 @@ class linkGenerator extends Controller
 
     	$shortLink = route('redirectToFull', ['short' => $short]);
 
-    	return view('start')->with('shortLinks', $shortLink);
+    	return view('start')->with('message', $shortLink);
 
     }
 
-    public function show($short)
+    public function redirectToFull($short)
     {
 
-    	$originalLink = Links::where('short', $short)->value('full');
+        $request = Links::where('short', $short);
+        $originalLink = $request->value('full');
 
-        return redirect($originalLink);
+        if(!empty($originalLink))
+            return redirect($originalLink);
+
+        return view('start')->with('message', "Link in not defined.");
     }
 }

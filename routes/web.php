@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('start');
 });
 
-Route::get('link/{short}', 'linkGenerator@show')->name('redirectToFull');
+Route::get('link/{short}', 'linkGenerator@redirectToFull')->name('redirectToFull');
 
 Route::post('submitLink', 'linkGenerator@index')->name('mklink');
