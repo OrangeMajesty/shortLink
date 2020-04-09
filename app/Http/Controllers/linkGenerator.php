@@ -16,8 +16,18 @@ class linkGenerator extends Controller
             'full' => 'required'
         ]);
 
-        $full = $request->get('full');
+        
+        $shortCode = $this->generate($request);
 
+        $shortLink = route('redirectToFull', ['short' => $shortCode]);
+
+    	return view('start')->with('message', $shortLink);
+
+    }
+
+    public function generate(Request $request)
+    {
+        $full = $request->get('full');
         $repeatedShort = Links::where('full', $full)->value('short');
         $short = Str::random(32);
 
@@ -33,15 +43,11 @@ class linkGenerator extends Controller
             $link->save();
         }
 
-    	$shortLink = route('redirectToFull', ['short' => $short]);
-
-    	return view('start')->with('message', $shortLink);
-
+        return $short;
     }
 
     public function redirectToFull($short)
     {
-
         $request = Links::where('short', $short);
         $originalLink = $request->value('full');
 

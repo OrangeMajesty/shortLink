@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('start');
 });
 
+// Используется для проверки редиректов
+Route::get('/otherlink', function() {
+	return view('start');
+})->name('testLink');
+
 Route::get('link/{short}', 'linkGenerator@redirectToFull')->name('redirectToFull');
 
 Route::post('submitLink', 'linkGenerator@index')->name('mklink');
+
+Route::post('generate_unitTests', 'linkGenerator@generate')->name('generate');
